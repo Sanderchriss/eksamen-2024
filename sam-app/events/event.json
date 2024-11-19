@@ -1,0 +1,8 @@
+{
+    "httpMethod": "POST",
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "body": "{\"prompt\": \"A happy programmer coding\"}",
+    "isBase64Encoded": false
+}
