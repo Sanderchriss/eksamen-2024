@@ -5,8 +5,8 @@ FROM maven:3.9.4-eclipse-temurin-17 as builder
 WORKDIR /app
 
 # Copy Maven configuration and source code
-COPY pom.xml ./
-COPY src ./java_sqs_client/src
+COPY java_sqs_client/pom.xml ./
+COPY java_sqs_client/src ./src
 
 # Build the application
 RUN mvn package -DskipTests
