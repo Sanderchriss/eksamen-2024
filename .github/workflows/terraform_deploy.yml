@@ -30,15 +30,21 @@ jobs:
 
       # Initialiser Terraform
       - name: Terraform Init
-        run: terraform init
+        run: |
+          cd infra
+          terraform init
 
       # Kjør Terraform Plan for non-main branches
       - name: Terraform Plan
         
         if: github.ref != 'refs/heads/master'
-        run: cd infra && terraform plan
+        run: |
+          cd infra
+          terraform plan
 
       # Kjør Terraform Apply for main branch
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master'
-        run: cd infra && terraform apply -auto-approve
+        run: |
+          cd infra
+          terraform apply -auto-approve
