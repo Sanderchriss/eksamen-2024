@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy Maven configuration and source code
 COPY pom.xml ./
-COPY src ./src
+COPY src ./java_sqs_client/src
 
 # Build the application
 RUN mvn package -DskipTests
