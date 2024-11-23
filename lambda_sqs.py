@@ -11,7 +11,7 @@ s3_client = boto3.client("s3")
 
 MODEL_ID = "amazon.titan-image-generator-v1"
 BUCKET_NAME =  os.environ["BUCKET_NAME"]
-UPLOAD_PATH = os.environ.get("UPLOAD_PATH", "16")
+UPLOAD_PATH = os.environ["UPLOAD_PATH"]
 
 def lambda_handler(event, context):
     # Loop through all SQS records in the event
