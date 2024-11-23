@@ -66,7 +66,7 @@ resource "aws_iam_policy" "lambda_policy16" {
 # Koble policyen til IAM-rollen
 resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   role       = aws_iam_role.lambda_execution_role_16.name
-  policy_arn = aws_iam_policy.lambda_policy_16.arn
+  policy_arn = aws_iam_policy.lambda_policy16.arn
 }
 
 
