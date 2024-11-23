@@ -2,7 +2,7 @@
 
 # Referanse til eksisterende S3-bucket
 data "aws_s3_bucket" "existing_bucket" {
-  bucket = "pgr301-couch-explorers" # Endre til navnet på den eksisterende bøtten
+  bucket = "pgr301-couch-explorers"
 }
 
 # Opprett SQS-køen
