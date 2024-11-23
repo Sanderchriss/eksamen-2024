@@ -11,8 +11,8 @@ resource "aws_sqs_queue" "lambda_queue" {
 }
 
 # IAM-rolle for Lambda-funksjonen
-resource "aws_iam_role" "lambda_execution_role" {
-  name = "lambda_execution_role"
+resource "aws_iam_role" "lambda_execution_role_16" {
+  name = "lambda_execution_role_16"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -65,8 +65,8 @@ resource "aws_iam_policy" "lambda_policy16" {
 
 # Koble policyen til IAM-rollen
 resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
-  role       = aws_iam_role.lambda_execution_role.name
-  policy_arn = aws_iam_policy.lambda_policy16.arn
+  role       = aws_iam_role.lambda_execution_role_16.name
+  policy_arn = aws_iam_policy.lambda_policy_16.arn
 }
 
 
@@ -76,7 +76,7 @@ resource "aws_lambda_function" "lambda_sqs_handler16" {
 
   filename         = "../lambda_sqs.zip"
   function_name    = "lambda_sqs_handler16"
-  role             = aws_iam_role.lambda_execution_role.arn
+  role             = aws_iam_role.lambda_execution_role_16.arn
   handler          = "lambda_sqs.lambda_handler"
   runtime          = "python3.9"
   timeout          = 30
