@@ -113,14 +113,14 @@ resource "aws_sns_topic_subscription" "email_subscription" {
 
 # CloudWatch Alarm for SQS
 resource "aws_cloudwatch_metric_alarm" "sqs_approximate_age_alarm" {
-  alarm_name          = "SQS-OldestMessageAge-Alarm"
+  alarm_name          = "kand16_SQS-OldestMessageAge-Alarm"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = "ApproximateAgeOfOldestMessage"
   namespace           = "AWS/SQS"
   period              = 60
   statistic           = "Maximum"
-  threshold           = 300 # Alarm utløses hvis meldingen er eldre enn 300 sekunder (5 minutter)
+  threshold           = 300 # Alarm utløses hvis meldingen er eldre enn 300 cirka sekunder (5 minutter) 
   alarm_description   = "Utløses når den eldste meldingen i SQS-køen er eldre enn 5 minutter"
 
   # Koble alarmen til SQS-køen
@@ -131,4 +131,5 @@ resource "aws_cloudwatch_metric_alarm" "sqs_approximate_age_alarm" {
   # Handling når alarm utløses
   alarm_actions = [aws_sns_topic.alarm_topic.arn]
 }
-
+//oppdaterer
+ 
