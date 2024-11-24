@@ -101,7 +101,7 @@ resource "aws_lambda_event_source_mapping" "sqs_event_source" {
 
 # SNS Topic for varsler
 resource "aws_sns_topic" "alarm_topic" {
-  name = "sqs-alarm-topic"
+  name = "sqs-alarm-topic-16"
 }
 
 # SNS Subscription for e-postvarsling
