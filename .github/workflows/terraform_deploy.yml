@@ -6,7 +6,7 @@ on:
       - master
       - "**" # For alle andre branches
     paths:
-      - infra/
+      - 'infra/**'
 
 jobs:
   terraform:
