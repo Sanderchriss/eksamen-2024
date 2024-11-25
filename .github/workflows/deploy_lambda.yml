@@ -49,6 +49,3 @@ jobs:
           source venv/bin/activate
           sam deploy --no-confirm-changeset --stack-name generate-image-stack --capabilities CAPABILITY_IAM
 
-      # Optional Step 7: Output the API URL after deploy
-      - name: Output API Gateway URL
-        run: echo "API URL: https://$(aws cloudformation describe-stacks --stack-name generate-image-stack --query 'Stacks[0].Outputs[0].OutputValue' --output text)"
