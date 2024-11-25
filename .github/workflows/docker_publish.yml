@@ -5,7 +5,9 @@ on:
     branches:
       - master
     paths:
-      - java_sqs_client/
+      - 'java_sqs_client/**'
+      - 'Dockerfile'
+      - 'lambda_sqs.py'
 
 jobs:
   build-and-push:
