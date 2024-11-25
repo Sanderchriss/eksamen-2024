@@ -33,6 +33,7 @@ jobs:
       # Step 4: Install dependencies (Python dependencies for SAM project)
       - name: Install dependencies
         run: |
+          cd sam-app
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
