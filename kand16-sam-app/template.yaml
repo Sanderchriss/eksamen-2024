@@ -4,7 +4,7 @@ Description: >
   kand16-sam-app
 
   Sample SAM Template for kand16-sam-app
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst aa
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst aaa
 Globals:
   Function:
     Timeout: 30
