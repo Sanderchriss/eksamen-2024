@@ -6,6 +6,9 @@ on:
       - master
     paths:
       - 'kand16-sam-app/**'
+defaults:
+  run:
+    working-directory: ./kand16-sam-app
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
