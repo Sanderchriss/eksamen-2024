@@ -1,0 +1,54 @@
+name: Deploy SAM Lambda Function
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up AWS credentials
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      # Step 3: Set up SAM CLI
+      - name: Set up SAM CLI
+        run: |
+          curl -Lo sam.tar.gz https://github.com/aws/aws-sam-cli/releases/download/v1.83.0/aws-sam-cli-linux-x86_64.zip
+          unzip sam.tar.gz -d sam-cli
+          sudo ./sam-cli/install
+        continue-on-error: true
+
+      # Step 4: Install dependencies (Python dependencies for SAM project)
+      - name: Install dependencies
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      # Step 5: Build the SAM application
+      - name: Build SAM application
+        run: |
+          source venv/bin/activate
+          sam build
+
+      # Step 6: Deploy the SAM application
+      - name: Deploy SAM application
+        run: |
+          source venv/bin/activate
+          sam deploy --no-confirm-changeset --stack-name generate-image-stack --capabilities CAPABILITY_IAM
+
+      # Optional Step 7: Output the API URL after deploy
+      - name: Output API Gateway URL
+        run: echo "API URL: https://$(aws cloudformation describe-stacks --stack-name generate-image-stack --query 'Stacks[0].Outputs[0].OutputValue' --output text)"

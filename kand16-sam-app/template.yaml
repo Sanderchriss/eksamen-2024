@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  kand16-sam-app
+
+  Sample SAM Template for kand16-sam-app
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 128
+  Api:
+    EndpointConfiguration:
+      Type: REGIONAL
+
+Resources:
+  GenerateImageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./sam-app/
+      MemorySize: 128
+      Timeout: 30
+      Policies:         
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+            Effect: Allow
+            Action:
+              - "s3:PutObject"  # tillatelse for å skrive til bucket
+            Resource:
+              - "arn:aws:s3:::pgr301-couch-explorers/16/*"
+        - Statement:
+            Effect: Allow
+            Action:
+              - "bedrock:InvokeModel"  # tillatelse for å kalle tjenesten og generere bilder med Titan-modellen
+            Resource: "arn:aws:bedrock:us-east-1:244530008913:foundation-model/amazon.titan-image-generator-v1"
+      Environment:
+        Variables:
+          BUCKET_NAME: pgr301-couch-explorers
+          CANDIDATE_NUMBER: "16" 
+      Events:
+        ApiGatewayEvent:
+          Type: Api
+          Properties:
+            Path: /generate
+            Method: POST
+
+
+Outputs:
+  GenerateImageApi:
+    Description: "API Gateway endpoint URL for Prod stage for GenerateImage function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/generate/"
+  GenerateImageFunction:
+    Description: "GenerateImage Lambda Function ARN"
+    Value: !GetAtt GenerateImageFunction.Arn
+  GenerateImageIamRole:
+    Description: "Implicit IAM Role created for GenerateImage function"
+    Value: !GetAtt GenerateImageFunctionRole.Arn
