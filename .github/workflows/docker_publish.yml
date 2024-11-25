@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - java_sqs_client
+      - java_sqs_client/
 
 jobs:
   build-and-push:
